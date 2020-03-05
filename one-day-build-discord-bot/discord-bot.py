@@ -24,7 +24,7 @@ async def on_message(message):
 	if message.author == bot.user:
 		return
 	channel = message.channel
-	keywords = ["work", "workout", "push", "push up", "up"]
+	keywords = ["work", "workout", "push", "push up", "up", "fitness", "health", "muscle", "pull"]
 	for keyword in keywords:
 		if keyword.lower() in message.content.lower():
 			response = f"Did someone say {keyword.lower()}? Drop and give me 10 <@{message.author.id}>!"
@@ -32,7 +32,7 @@ async def on_message(message):
 
 
 @bot.event
-async def workout_time():
+async def pushup_reminder():
 	while(True):
 		await bot.wait_until_ready()
 		online_members = []
@@ -49,5 +49,5 @@ async def workout_time():
 		await asyncio.sleep(3600)
 
 
-bot.loop.create_task(workout_time())
+bot.loop.create_task(pushup_reminder())
 bot.run(token)
