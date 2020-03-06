@@ -21,34 +21,11 @@ class Board:
         self.DIRECTIONS = ["DOWN", "UP", "LEFT", "RIGHT"]
         self.NON_VALID_MOVES = 10
 
-    def check_for_win(self):
-        is_win = False
-        for row in range(self.size):
-            for col in range(self.size):
-                if self.board[row][col] == self.WIN_VALUE:
-                    is_win = True
-        return is_win
-       
-    def check_for_move(self):
-        has_move = False
-        for row, col in product(range(self.size), range(self.size)):
-            if self.board[row][col] == 0:
-                has_move = True
-                break
-            try:
-                if self.board[row][col] == self.board[row+1][col] or self.board[row][col+1] == self.board[row][col]:
-                    has_move = True
-                    break
-            except IndexError:
-                pass
-        return has_move
-
     def push_row_right(self, a_row):
         a_row = np.concatenate((a_row[a_row==0], a_row[a_row!=0]))
         return a_row
     
     def push_board_right(self):
-        initial_board = np.copy(self.board)
         self.board = np.apply_along_axis(self.push_row_right, 1, self.board)
 
     def merge_elements(self):
@@ -97,18 +74,46 @@ class Board:
             move_was_made = False
         return move_was_made
 
+    def check_for_win(self):
+        is_win = False
+        for row in range(self.size):
+            for col in range(self.size):
+                if self.board[row][col] == self.WIN_VALUE:
+                    is_win = True
+        return is_win
+
+    def check_for_loss(self):
+        is_loss = True
+        actual_board = np.copy(self.board)
+        for move in self.DIRECTIONS:
+            if self.make_move(move):
+                is_loss = False
+                self.board = actual_board
+                break
+            else:
+                self.board = actual_board
+        return is_loss
+            
+
+
     def board_evaluation(self):
-        if self.WIN_VALUE in self.board:
-            return self.WIN_VALUE
+        if self.check_for_win():
+            return 0
+        elif self.check_for_loss():
+            return 30
         else:
-            return np.mean(self.board)
+            number_nonzero = len(np.nonzero(self.board))
+            std_dev = 5 * np.std(self.board)
+            return number_nonzero + std_dev
     
     def move_maker(self):
         actual_board = np.copy(self.board)
         move_results = np.zeros(4)
         for first_move in range(4):
             for _ in range(self.NUMBER_OF_SEARCHES):
-                self.make_move(self.DIRECTIONS[first_move])
+                move_was_made = self.make_move(self.DIRECTIONS[first_move])
+                if not move_was_made:
+                    break
                 non_valid_moves = 0
                 step = 0
                 while step < self.SEARCH_LENGTH:
@@ -128,11 +133,32 @@ class Board:
         self.make_move(self.DIRECTIONS[move])
     
     def test_ai(self):
-        for i in range(1000):
+        move_number = 0
+        while move_number < 1000:
+            move_number += 1
             print(self.board)
-            print(i)
+            print(move_number)
             self.move_maker()
         print(self.board)
 
 board = Board(4)
 board.test_ai()
+
+    
+
+# def play_game():
+#     board = Board(4)
+#     while i < 10:
+#         print(board.board)
+#         stroke = input("What direction? ")
+#         if stroke == "w":
+#             direction = "UP"
+#         if stroke == "a":
+#             direction = "LEFT"
+#         if stroke == "d":
+#             direction = "RIGHT"
+#         if stroke == "s":
+#             direction = "DOWN"
+#         board.make_move(direction)
+#         i += 1
+# play_game()
