@@ -1,7 +1,6 @@
 import tkinter as tk
 import random
 import colors as c
-import functions as f
 
 
 class Game(tk.Frame):
