@@ -16,7 +16,7 @@ You can find the pretrained weight in the `weights` folder.
 
 ## Use 
 
-To run the pretrained model go to the command line and run the script `detect_Deepfake.py` which will use the sample images we mentioned in the video. 
+To run the pretrained model go to the command line and run the script `detect_Deepfake.py` which will use the sample images that we mentioned in the video. 
 
 ## Original Authors
 
