@@ -10,17 +10,13 @@ This repository is a tutorial on how to detect Deepfakes using MesoNet.
 - Numpy 1.14.2
 - Keras 2.1.5
 
-
-
 You can find the pretrained weight in the `weights` folder. 
 
 
 
 ## Use 
 
-To run the pretrained model on python -u "/Users/gabemersy/MesoNet/example.py"
-
-
+To run the pretrained model go to the command line and run the script `detect_Deepfake.py` which will use the sample images we mentioned in the video. 
 
 ## Original Authors
 
