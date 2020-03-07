@@ -1,0 +1,13 @@
+Found 5 images belonging to 2 classes.
+The order of the files are (df is DeepFake):
+df/elon_fake_1.png
+df/elon_fake_2.png
+df/obama_fake.png
+real/elon_real.png
+real/obama_real.png
+Predicted probability of the image being real: [[0.7889354]
+ [0.7816247]
+ [0.9934752]
+ [0.8929086]
+ [0.695085 ]] 
+Real class : [0. 0. 0. 1. 1.]
