@@ -28,9 +28,12 @@ class Game(tk.Frame):
         for i in range(4):
             row = []
             for j in range(4):
-                cell_display = tk.Label(self.main_grid, width=8, height=4, bg=c.EMPTY_CELL_COLOR, font=c.NUMBER_FONT)
-                cell_display.grid(row=i, column=j, padx=5, pady=5)
-                row.append(cell_display)
+                cell_frame = tk.Frame(self.main_grid, bg=c.EMPTY_CELL_COLOR, width=100, height=100)
+                cell_frame.grid(row=i, column=j, padx=5, pady=5)
+                cell_number = tk.Label(self.main_grid, bg=c.EMPTY_CELL_COLOR)
+                cell_number.grid(row=i, column=j)
+                cell_data = {"frame": cell_frame, "number": cell_number}
+                row.append(cell_data)
             self.cells.append(row)
 
         # make score header
@@ -49,12 +52,14 @@ class Game(tk.Frame):
         row = random.randint(0, 3)
         col = random.randint(0, 3)
         self.matrix[row][col] = 2
-        self.cells[row][col].configure(bg=c.CELL_COLORS[2], fg=c.CELL_NUMBER_COLORS[2], text="2")
+        self.cells[row][col]["frame"].configure(bg=c.CELL_COLORS[2])
+        self.cells[row][col]["number"].configure(bg=c.CELL_COLORS[2], fg=c.CELL_NUMBER_COLORS[2], font=c.CELL_NUMBER_FONTS[2], text="2")
         while(self.matrix[row][col] != 0):
             row = random.randint(0, 3)
             col = random.randint(0, 3)
         self.matrix[row][col] = 2
-        self.cells[row][col].configure(bg=c.CELL_COLORS[2], fg=c.CELL_NUMBER_COLORS[2], text="2")
+        self.cells[row][col]["frame"].configure(bg=c.CELL_COLORS[2])
+        self.cells[row][col]["number"].configure(bg=c.CELL_COLORS[2], fg=c.CELL_NUMBER_COLORS[2], font=c.CELL_NUMBER_FONTS[2], text="2")
 
         self.score = 0
 
@@ -116,9 +121,11 @@ class Game(tk.Frame):
             for j in range(4):
                 cell_value = self.matrix[i][j]
                 if cell_value == 0:
-                    self.cells[i][j].configure(bg=c.EMPTY_CELL_COLOR, text="")
+                    self.cells[i][j]["frame"].configure(bg=c.EMPTY_CELL_COLOR)
+                    self.cells[i][j]["number"].configure(bg=c.EMPTY_CELL_COLOR, text="")
                 else:
-                    self.cells[i][j].configure(bg=c.CELL_COLORS[cell_value], fg=c.CELL_NUMBER_COLORS[cell_value], text=str(cell_value))
+                    self.cells[i][j]["frame"].configure(bg=c.CELL_COLORS[cell_value])
+                    self.cells[i][j]["number"].configure(bg=c.CELL_COLORS[cell_value], fg=c.CELL_NUMBER_COLORS[cell_value], font=c.CELL_NUMBER_FONTS[cell_value], text=str(cell_value))
         self.score_label.configure(text=self.score)
         self.update_idletasks()
 
