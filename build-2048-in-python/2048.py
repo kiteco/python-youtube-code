@@ -103,15 +103,15 @@ class Game(tk.Frame):
         self.matrix = new_matrix
 
 
-    # Add a 2 tile randomly to an empty cell
+    # Add a new 2 or 4 tile randomly to an empty cell
 
-    def add_new_2(self):
+    def add_new_tile(self):
         row = random.randint(0, 3)
         col = random.randint(0, 3)
         while(self.matrix[row][col] != 0):
             row = random.randint(0, 3)
             col = random.randint(0, 3)
-        self.matrix[row][col] = 2
+        self.matrix[row][col] = random.choice([2, 4])
 
 
     # Update the GUI to match the matrix
@@ -136,7 +136,7 @@ class Game(tk.Frame):
         self.stack()
         self.combine()
         self.stack()
-        self.add_new_2()
+        self.add_new_tile()
         self.update_GUI()
         self.game_over()
 
@@ -147,7 +147,7 @@ class Game(tk.Frame):
         self.combine()
         self.stack()
         self.reverse()
-        self.add_new_2()
+        self.add_new_tile()
         self.update_GUI()
         self.game_over()
     
@@ -158,7 +158,7 @@ class Game(tk.Frame):
         self.combine()
         self.stack()
         self.transpose()
-        self.add_new_2()
+        self.add_new_tile()
         self.update_GUI()
         self.game_over()
     
@@ -171,7 +171,7 @@ class Game(tk.Frame):
         self.stack()
         self.reverse()
         self.transpose()
-        self.add_new_2()
+        self.add_new_tile()
         self.update_GUI()
         self.game_over()
     
