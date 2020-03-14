@@ -3,7 +3,7 @@
 You can find all the code associated with our Youtube Channel here. You can use the code here to follow along the videos from our Youtube Channel (https://www.youtube.com/channel/UCxVRDu9ujwOrmDxu72V3ujQ).
 
 * [Hangman with Python](https://www.youtube.com/watch?v=m4nEnsavl6w) - https://github.com/kiteco/python-youtube-code/tree/master/build-hangman-in-python
-
+* [Twitter API](https://www.youtube.com/watch?v=EAvEa5fLwRA) - https://github.com/kiteco/python-youtube-code/tree/master/Twitter-api-geolocator
 
 # What is Kite?
 
