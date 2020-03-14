@@ -4,10 +4,10 @@ import descartes
 import geopandas as gpd
 import json
 
-consumer_key= "XFPCit9INw0C5oHkFpN9kAh0J"
-consumer_secret= "DuOjiE8OQXgzVGSHtBILjT7V7DhTXVrrQdYodSi3AgbB34k4U3"
-access_token_key= "1228090292462596096-hiEfFd72fZKvacjiakXxTmWunLZPT3"
-access_token_secret= "6AJQpzMCSvWFwND90bLxr80VjCrps3q3v9BIQyv17jS34"
+consumer_key= ""
+consumer_secret= ""
+access_token_key= ""
+access_token_secret= ""
 
 
 api = TwitterAPI(consumer_key,
