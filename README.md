@@ -5,8 +5,8 @@ You can find all the code associated with our Youtube Channel here. You can use 
 * [Hangman with Python](https://www.youtube.com/watch?v=m4nEnsavl6w) - https://github.com/kiteco/python-youtube-code/tree/master/build-hangman-in-python
 * [Twitter API](https://www.youtube.com/watch?v=EAvEa5fLwRA) - https://github.com/kiteco/python-youtube-code/tree/master/Twitter-api-geolocator
 * [Baby Yoda Webscraping](youtube.com) - https://github.com/kiteco/python-youtube-code/tree/master/Webscraping-baby-yoda-with-requests-and-bs4
-*[1 Day Builds - Discord Bot](youtube.com) - https://github.com/kiteco/python-youtube-code/tree/master/one-day-build-discord-bot
-*[5 Minute Coding Interview Bootcamp - Basic Algorithms](youtube.com) - https://github.com/kiteco/python-youtube-code/tree/master/5-minute-coding-interview-bootcamp-basic-algorithms
+* [1 Day Builds - Discord Bot](youtube.com) - https://github.com/kiteco/python-youtube-code/tree/master/one-day-build-discord-bot
+* [5 Minute Coding Interview Bootcamp - Basic Algorithms](youtube.com) - https://github.com/kiteco/python-youtube-code/tree/master/5-minute-coding-interview-bootcamp-basic-algorithms
 
 # What is Kite?
 
