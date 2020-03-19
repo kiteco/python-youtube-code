@@ -8,41 +8,51 @@ consumer_secret= ""
 access_token_key= ""
 access_token_secret= ""
 
-
-internet_package = "Performance"
-# in megabits
-expected_download = 60
-expected_upload = 2
-
-
 api = TwitterAPI(consumer_key,
                  consumer_secret,
                  access_token_key,
                  access_token_secret)
 
 
-def check_speeds():
+def check_speeds(checks, download_total, upload_total):
 	speedtester = speedtest.Speedtest()
 
 	# returned as bits, converted to megabits
-	download_speed = speedtester.download() / 1000000.0
-	upload_speed = speedtester.upload() / 1000000.0
+	download_speed = int(speedtester.download() / 1000000)
+	upload_speed = int(speedtester.upload() / 1000000)
 
-	print(download_speed)
-	print(upload_speed)
+	download_total += download_speed
+	upload_total += upload_speed
+	checks += 1
+
+	upload_avg = upload_total / checks
+	download_avg = download_total / checks
+
+	print("Download Speed: " + str(download_speed) + "Mbps")
+	print("Upload Speed: " + str(upload_speed) + "Mbps")
+	print("Download Average: " + str(download_avg) + "Mbps")
+	print("Upload Average: " + str(upload_avg) + "Mbps")
 	print("\n")
-	if download_speed < expected_download:
-		difference = expected_download - download_speed
-		tweet = "@XFinity Why is my internet being slow? I'm supposed to be getting " + expected_download + "Mbps download and " + expected_upload + "Mbps upload, but I'm only getting " + download_speed + "Mbps download and " + upload_speed + "Mbps upload."
-		api.request("statuses/update", {'status': tweet})
+
+	if download_speed < download_avg * 0.75 or upload_speed < upload_avg * 0.75:
+		tweet = "@XFinity My speeds are 25% slower than usual, any idea why?"
+		api.request("statuses/update", {"status": tweet})
+
+	if download_speed < download_avg * 0.5 or upload_speed < upload_avg * 0.5:
+		tweet = "@XFinity My speeds are 50 PERCENT slower than averge... Please fix this."
+		api.request("statuses/update", {"status": tweet})
+
+	if download_speed < download_avg * 0.2 or upload_speed < upload_avg * 0.2:
+		tweet = "@XFinity My speeds are 80 PERCENT slower than average, please fix this or I will find a new ISP."
+		api.request("statuses/update", {"status": tweet})
 
 
 scheduler = sched.scheduler(time.time, time.sleep)
 
 def periodic_check(scheduler, interval, action, arguments=()):
 	scheduler.enter(interval, 1, periodic_check, (scheduler, interval, action, arguments))
-	action()
+	action(arguments[0], arguments[1], arguments[2])
 
 
-periodic_check(scheduler, 1, check_speeds)
+periodic_check(scheduler, 1, check_speeds, (1, 60.0, 2.0))
 scheduler.run()
