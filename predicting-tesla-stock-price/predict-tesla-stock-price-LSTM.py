@@ -18,7 +18,6 @@ new_tesla = tesla.loc[884:1639]
 # Feature preprocessing
 new_tesla = new_tesla.drop('Date', axis = 1)
 new_tesla = new_tesla.reset_index(drop = True)
-new_tesla.head()
 T = new_tesla.values
 T = T.astype('float32')
 T = np.reshape(T, (-1, 1))
