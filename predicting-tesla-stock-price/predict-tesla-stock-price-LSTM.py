@@ -1,7 +1,6 @@
 # Importing modules
 import numpy as np 
 import pandas as pd
-import matplotlib.pyplot as plt
 
 # Reading in the data
 tesla = pd.read_csv('TSLA.csv')
