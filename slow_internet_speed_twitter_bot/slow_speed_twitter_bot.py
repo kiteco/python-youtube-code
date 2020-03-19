@@ -2,11 +2,12 @@ from TwitterAPI import TwitterAPI
 import speedtest
 import sched
 import time
+import os
 
-consumer_key= ""
-consumer_secret= ""
-access_token_key= ""
-access_token_secret= ""
+consumer_key = os.getenv("consumer_key")
+consumer_secret = os.getenv("consumer_secret")
+access_token_key = os.getenv("access_token_key")
+access_token_secret = os.getenv("access_token_secret")
 
 api = TwitterAPI(consumer_key,
                  consumer_secret,
