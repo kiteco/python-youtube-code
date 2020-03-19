@@ -1,7 +1,7 @@
 """
 Part one: loading the model
 """
- #Imports, ignore warnings
+# Imports, ignore warnings
 import warnings
 warnings.filterwarnings('ignore')
 import os
