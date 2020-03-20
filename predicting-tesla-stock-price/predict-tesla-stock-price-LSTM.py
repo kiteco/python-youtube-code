@@ -96,25 +96,6 @@ history = model.fit(X_train, Y_train, epochs = 100, batch_size = 20, validation_
                     callbacks = [checkpoint], 
                     verbose = 1, shuffle = False)
 
-# Load chosen model
-from keras.models import load_model
-
-best_model = load_model('saved_models/model_epoch_89.hdf5')
-
-# Predicting and inverse transforming the predictions
-
-train_predict = best_model.predict(X_train)
-
-Y_hat_train = scaler.inverse_transform(train_predict)
-
-test_predict = best_model.predict(X_test)
-
-Y_hat_test = scaler.inverse_transform(test_predict)
-
-# Inverse transforming the actual values, to return them to their original values
-Y_test = scaler.inverse_transform([Y_test])
-Y_train = scaler.inverse_transform([Y_train])
-
 """
 Loading the best model and predicting
 """
