@@ -36,15 +36,15 @@ def check_speeds(checks, download_total, upload_total):
 	print("\n")
 
 	if download_speed < download_avg * 0.75 or upload_speed < upload_avg * 0.75:
-		tweet = "@XFinity My speeds are 25% slower than usual, any idea why?"
+		tweet = "@XFinity My speeds are 25% slower than usual, any idea why? 😊"
 		api.request("statuses/update", {"status": tweet})
 
 	if download_speed < download_avg * 0.5 or upload_speed < upload_avg * 0.5:
-		tweet = "@XFinity My speeds are 50 PERCENT slower than averge... Please fix this."
+		tweet = "@XFinity My speeds are 50 PERCENT slower than averge... Please fix this. 😒"
 		api.request("statuses/update", {"status": tweet})
 
 	if download_speed < download_avg * 0.2 or upload_speed < upload_avg * 0.2:
-		tweet = "@XFinity My speeds are 80 PERCENT slower than average, please fix this or I will find a new ISP."
+		tweet = "Using my phone as a hotspot because my @XFinity speeds are 80% slower than usual 😠"
 		api.request("statuses/update", {"status": tweet})
 
 
