@@ -103,7 +103,10 @@ def main():
 
     snake = Snake()
     food = Food()
-      
+    
+    myfont = pygame.font.SysFont("monospace", 16)
+    
+    score = 0 
     while True:
         clock.tick(10)
         snake.handle_keys()
@@ -111,10 +114,13 @@ def main():
         snake.move()
         if snake.get_head_position() == food.position:
             snake.length += 1
+            score += 1
             food.randomize_position()
         snake.draw(surface)
         food.draw(surface) 
         screen.blit(surface, (0,0))
+        text = myfont.render("Score {0}".format(score), 1, (0,0,0))
+        screen.blit(text, (5, 10))
         pygame.display.update()
         
 main()
