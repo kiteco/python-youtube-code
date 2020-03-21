@@ -9,8 +9,9 @@ class Game(tk.Frame):
         self.grid()
         self.master.title('2048')
 
-        self.main_grid = tk.Frame(self, bg=c.GRID_COLOR, bd=3, width=400, height=400)
-        self.main_grid.grid(pady=(80,0))
+        self.main_grid = tk.Frame(
+            self, bg=c.GRID_COLOR, bd=3, width=400, height=400)
+        self.main_grid.grid(pady=(80, 0))
         self.make_GUI()
         self.start_game()
 
@@ -18,7 +19,7 @@ class Game(tk.Frame):
         self.master.bind("<Right>", self.right)
         self.master.bind("<Up>", self.up)
         self.master.bind("<Down>", self.down)
-        
+
         self.mainloop()
 
 
@@ -28,7 +29,11 @@ class Game(tk.Frame):
         for i in range(4):
             row = []
             for j in range(4):
-                cell_frame = tk.Frame(self.main_grid, bg=c.EMPTY_CELL_COLOR, width=100, height=100)
+                cell_frame = tk.Frame(
+                    self.main_grid,
+                    bg=c.EMPTY_CELL_COLOR,
+                    width=100,
+                    height=100)
                 cell_frame.grid(row=i, column=j, padx=5, pady=5)
                 cell_number = tk.Label(self.main_grid, bg=c.EMPTY_CELL_COLOR)
                 cell_number.grid(row=i, column=j)
@@ -39,27 +44,39 @@ class Game(tk.Frame):
         # make score header
         score_frame = tk.Frame(self)
         score_frame.place(relx=0.5, y=40, anchor="center")
-        tk.Label(score_frame, text="Score", font=c.SCORE_LABEL_FONT).grid(row=0)
+        tk.Label(
+            score_frame,
+            text="Score",
+            font=c.SCORE_LABEL_FONT).grid(
+            row=0)
         self.score_label = tk.Label(score_frame, text="0", font=c.SCORE_FONT)
         self.score_label.grid(row=1)
 
 
     def start_game(self):
         # create matrix of zeroes
-        self.matrix = [ [0] * 4 for _ in range(4) ]
+        self.matrix = [[0] * 4 for _ in range(4)]
 
         # fill 2 random cells with 2s
         row = random.randint(0, 3)
         col = random.randint(0, 3)
         self.matrix[row][col] = 2
         self.cells[row][col]["frame"].configure(bg=c.CELL_COLORS[2])
-        self.cells[row][col]["number"].configure(bg=c.CELL_COLORS[2], fg=c.CELL_NUMBER_COLORS[2], font=c.CELL_NUMBER_FONTS[2], text="2")
+        self.cells[row][col]["number"].configure(
+            bg=c.CELL_COLORS[2],
+            fg=c.CELL_NUMBER_COLORS[2],
+            font=c.CELL_NUMBER_FONTS[2],
+            text="2")
         while(self.matrix[row][col] != 0):
             row = random.randint(0, 3)
             col = random.randint(0, 3)
         self.matrix[row][col] = 2
         self.cells[row][col]["frame"].configure(bg=c.CELL_COLORS[2])
-        self.cells[row][col]["number"].configure(bg=c.CELL_COLORS[2], fg=c.CELL_NUMBER_COLORS[2], font=c.CELL_NUMBER_FONTS[2], text="2")
+        self.cells[row][col]["number"].configure(
+            bg=c.CELL_COLORS[2],
+            fg=c.CELL_NUMBER_COLORS[2],
+            font=c.CELL_NUMBER_FONTS[2],
+            text="2")
 
         self.score = 0
 
@@ -67,7 +84,7 @@ class Game(tk.Frame):
     # Matrix Manipulation Functions
 
     def stack(self):
-        new_matrix = [ [0] * 4 for _ in range(4) ]
+        new_matrix = [[0] * 4 for _ in range(4)]
         for i in range(4):
             fill_position = 0
             for j in range(4):
@@ -96,7 +113,7 @@ class Game(tk.Frame):
 
 
     def transpose(self):
-        new_matrix = [ [0] * 4 for _ in range(4) ]
+        new_matrix = [[0] * 4 for _ in range(4)]
         for i in range(4):
             for j in range(4):
                 new_matrix[i][j] = self.matrix[j][i]
@@ -122,16 +139,22 @@ class Game(tk.Frame):
                 cell_value = self.matrix[i][j]
                 if cell_value == 0:
                     self.cells[i][j]["frame"].configure(bg=c.EMPTY_CELL_COLOR)
-                    self.cells[i][j]["number"].configure(bg=c.EMPTY_CELL_COLOR, text="")
+                    self.cells[i][j]["number"].configure(
+                        bg=c.EMPTY_CELL_COLOR, text="")
                 else:
-                    self.cells[i][j]["frame"].configure(bg=c.CELL_COLORS[cell_value])
-                    self.cells[i][j]["number"].configure(bg=c.CELL_COLORS[cell_value], fg=c.CELL_NUMBER_COLORS[cell_value], font=c.CELL_NUMBER_FONTS[cell_value], text=str(cell_value))
+                    self.cells[i][j]["frame"].configure(
+                        bg=c.CELL_COLORS[cell_value])
+                    self.cells[i][j]["number"].configure(
+                        bg=c.CELL_COLORS[cell_value],
+                        fg=c.CELL_NUMBER_COLORS[cell_value],
+                        font=c.CELL_NUMBER_FONTS[cell_value],
+                        text=str(cell_value))
         self.score_label.configure(text=self.score)
         self.update_idletasks()
 
 
     # Arrow-Press Functions
-    
+
     def left(self, event):
         self.stack()
         self.combine()
@@ -140,7 +163,7 @@ class Game(tk.Frame):
         self.update_GUI()
         self.game_over()
 
-    
+
     def right(self, event):
         self.reverse()
         self.stack()
@@ -150,7 +173,7 @@ class Game(tk.Frame):
         self.add_new_tile()
         self.update_GUI()
         self.game_over()
-    
+
 
     def up(self, event):
         self.transpose()
@@ -161,7 +184,7 @@ class Game(tk.Frame):
         self.add_new_tile()
         self.update_GUI()
         self.game_over()
-    
+
 
     def down(self, event):
         self.transpose()
@@ -174,7 +197,9 @@ class Game(tk.Frame):
         self.add_new_tile()
         self.update_GUI()
         self.game_over()
-    
+
+
+    # Check if any moves are possible
 
     def horizontal_move_exists(self):
         for i in range(4):
@@ -193,16 +218,27 @@ class Game(tk.Frame):
 
 
     # Check if Game is Over (Win/Lose)
+
     def game_over(self):
         if any(2048 in row for row in self.matrix):
             game_over_frame = tk.Frame(self.main_grid, borderwidth=2)
             game_over_frame.place(relx=0.5, rely=0.5, anchor="center")
-            tk.Label(game_over_frame, text="You win!", bg=c.WINNER_BG, fg=c.GAME_OVER_FONT_COLOR, font=c.GAME_OVER_FONT).pack()
+            tk.Label(
+                game_over_frame,
+                text="You win!",
+                bg=c.WINNER_BG,
+                fg=c.GAME_OVER_FONT_COLOR,
+                font=c.GAME_OVER_FONT).pack()
         elif not any(0 in row for row in self.matrix) and not self.horizontal_move_exists() and not self.vertical_move_exists():
             game_over_frame = tk.Frame(self.main_grid, borderwidth=2)
             game_over_frame.place(relx=0.5, rely=0.5, anchor="center")
-            tk.Label(game_over_frame, text="Game over!", bg=c.LOSER_BG, fg=c.GAME_OVER_FONT_COLOR, font=c.GAME_OVER_FONT).pack()
-        
+            tk.Label(
+                game_over_frame,
+                text="Game over!",
+                bg=c.LOSER_BG,
+                fg=c.GAME_OVER_FONT_COLOR,
+                font=c.GAME_OVER_FONT).pack()
+
 
 def main():
     Game()
