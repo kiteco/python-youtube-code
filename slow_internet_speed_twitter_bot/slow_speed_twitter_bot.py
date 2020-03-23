@@ -34,7 +34,7 @@ def check_speeds():
 		api.request("statuses/update", {"status": tweet})
 
 	if download_speed < advertised_download * 0.5 or upload_speed < advertised_upload * 0.5:
-		tweet = "@XFinity My speeds are 50 PERCENT slower than averge... Please fix this. 😒"
+		tweet = "@XFinity My speeds are 50 PERCENT slower than advertised ... Please fix this. 😒"
 		api.request("statuses/update", {"status": tweet})
 
 	if download_speed < advertised_download * 0.25 or upload_speed < advertised_upload * 0.25:
