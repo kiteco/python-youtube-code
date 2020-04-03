@@ -81,8 +81,28 @@ audio_features_cnn = np.expand_dims(audio_features, axis = 2)
 preds = loaded_model.predict(audio_features_cnn, 
                              batch_size = 32, 
                              verbose = 1)
+# Here we pool the probabilities of the male and female partitions for a particular emotion to remove gender
+def sumProbs(preds):
+    file = []
+    for i in range(9):
+        temp = []
+        p_angry = preds[i][0] + preds[i][5]
+        p_calm = preds[i][1] + preds[i][6]
+        p_fearful = preds[i][2] + preds[i][7]
+        p_happy = preds[i][3] + preds[i][8]
+        p_sad = preds[i][4] + preds[i][9]
+        temp.append(p_angry)
+        temp.append(p_calm)
+        temp.append(p_fearful)
+        temp.append(p_happy)
+        temp.append(p_sad)
+        file.append(temp)
+    return np.array(file)
 
+new_preds = sumProbs(preds)
 
+# Take the emotion argument with the highest probability
+arg_max = new_preds.argmax(axis = 1)
 """
 Part four: inverse transform the predictions
 """
@@ -108,4 +128,3 @@ That's what she said...
 """
 emotions = e.emotions
 pred_emo = inverseTransform(preds, emotions)
-        
