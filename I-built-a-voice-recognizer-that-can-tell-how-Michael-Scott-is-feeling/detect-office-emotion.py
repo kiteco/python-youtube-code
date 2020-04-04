@@ -84,7 +84,7 @@ preds = loaded_model.predict(audio_features_cnn,
 # Here we pool the probabilities of the male and female partitions for a particular emotion to remove gender
 def sumProbs(preds):
     file = []
-    for i in range(9):
+    for i in range(preds.shape[1]):
         temp = []
         p_angry = preds[i][0] + preds[i][5]
         p_calm = preds[i][1] + preds[i][6]
@@ -108,21 +108,19 @@ Part four: inverse transform the predictions
 """
 # Method to inverse transform the predictions
 def inverseTransform(preds, emotion_dict):
-    # Find the maximum value for each set of predictions and return it
-    preds = preds.argmax(axis = 1)
     decoded = []
     preds = preds.tolist()
-    # Conversion loop
-    for i in range(9):
+    for i in range(preds.shape([1])):
         key = preds[i]
         filename = file_names[i]
-        val = emotion_dict[i]
+        val = emotion_dict[key]
         print('file name:', filename, '/', 'CNN prediction:', key, '/', 'predicted emotion:', val)
         decoded.append(val) 
-    return decoded
+    return filename, key, val
+        
 """
 Note that the method will print the filename, the prediction that the CNN made, and the predicted emotion.
-Let's just say that, emotion detection is sure hard! 
+Let's just say that emotion detection is sure hard! 
 
 That's what she said... 
 """
