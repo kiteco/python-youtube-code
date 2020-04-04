@@ -110,7 +110,7 @@ Part four: inverse transform the predictions
 def inverseTransform(preds, emotion_dict):
     decoded = []
     preds = preds.tolist()
-    for i in range(preds.shape([1])):
+    for i in range(len(preds)):
         key = preds[i]
         filename = file_names[i]
         val = emotion_dict[key]

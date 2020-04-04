@@ -1,0 +1,10 @@
+file name: She_Said_Michael.wav / CNN prediction: 3 / predicted emotion: happy
+file name: Snake_Mongoose_Dwight_1.wav / CNN prediction: 2 / predicted emotion: fearful
+file name: Bankruptcy_Michael_1.wav / CNN prediction: 2 / predicted emotion: fearful
+file name: Don't_Touch_It_Michael_1.wav / CNN prediction: 2 / predicted emotion: fearful
+file name: ID_badges_Dwight_1.wav / CNN prediction: 2 / predicted emotion: fearful
+file name: Crackling_Bacon_Michael_1.wav / CNN prediction: 4 / predicted emotion: sad
+file name: Deposed_King_Michael_1.wav / CNN prediction: 4 / predicted emotion: sad
+file name: Stranger_On_Purpose_Dwight_1.wav / CNN prediction: 2 / predicted emotion: fearful
+file name: Commited_Crime_Dwight_1.wav / CNN prediction: 0 / predicted emotion: angry
+file name: Ow_Oh_Not_Again_Dwight_1.wav / CNN prediction: 2 / predicted emotion: fearful
