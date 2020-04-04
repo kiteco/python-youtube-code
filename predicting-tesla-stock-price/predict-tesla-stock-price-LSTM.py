@@ -33,8 +33,8 @@ train_size = int(len(T) * 0.80)
 test_size = int(len(T) - train_size)
 train, test = T[0:train_size,:], T[train_size:len(T),:]
 
-# Method for converting a time series dataset to a supervised learning problem
-def convert_to_supervised(data, window_size):
+# Method for create features from the time series data
+def create_features(data, window_size):
     X, Y = [], []
     for i in range(len(data) - window_size - 1):
         window = data[i:(i + window_size), 0]
@@ -42,16 +42,26 @@ def convert_to_supervised(data, window_size):
         Y.append(data[i + window_size, 0])
     return np.array(X), np.array(Y)
 
-# Roughly one month of trading assuming 5 trading days per month
+# Roughly one month of trading assuming 5 trading days per week
 window_size = 20
-X_train, Y_train = convert_to_supervised(train, window_size)
+X_train, Y_train = create_features(train, window_size)
 
-X_test, Y_test = convert_to_supervised(test, window_size)
+X_test, Y_test = create_features(test, window_size)
 
 # Reshape to the format of [samples, time steps, features]
 X_train = np.reshape(X_train, (X_train.shape[0], 1, X_train.shape[1]))
 
 X_test = np.reshape(X_test, (X_test.shape[0], 1, X_test.shape[1]))
+
+T_shape = T.shape
+train_shape = train.shape
+test_shape = test.shape
+
+# Make sure that the number of rows in the dataset = train rows + test rows
+def isLeak(T_shape, train_shape, test_shape):
+    return not(T_shape[0] == (train_shape[0] + test_shape[0]))
+
+print(isLeak(T_shape, train_shape, test_shape))
 
 # Model imports
 import tensorflow as tf
