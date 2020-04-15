@@ -1,41 +1,12 @@
 import os
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
 import numpy as np
-import skimage
-from skimage.io import imread, imshow
-from skimage.transform import resize
 from keras.preprocessing.image import ImageDataGenerator
 
 import tensorflow as tf
 from keras.models import Model
 from keras.optimizers import Adam
 from keras.layers import Input, Dense, Flatten, Conv2D, MaxPooling2D, BatchNormalization, Dropout, Reshape, Concatenate, LeakyReLU
-
-# Read in the images
-def readImgs(path):
-    imgs = []
-    i = 0
-    for filename in os.listdir(path): 
-        i += 1
-        if i == 251:
-            break
-        if filename.endswith('.jpg'):
-            img = imread(os.path.join(path,filename))
-            resized = resize(img, (256, 256), anti_aliasing=True)
-            imgs.append(resized)
-    return imgs
-
-train_df_path = 'deepfake_database/deepfake_database/train:test/df'
-train_real_path = 'deepfake_database/deepfake_database/train:test/real'
-deepfakes_train = readImgs(train_df_path)
-real_train = readImgs(train_real_path)
-
-y_train = [0]*250 + [1]*250
-X_train = deepfakes_train + real_train
-
-y_train = np.array(y_train)
-X_train = np.array(X_train)
-
 
 def init_model(img_width): 
     x = Input(shape = (img_width, img_width, 3))
@@ -67,7 +38,7 @@ Meso4 = init_model(256)
 
 opt = Adam(lr = 0.001)
 Meso4.compile(optimizer = opt, loss = 'binary_crossentropy')
-Meso4.fit(X_train, y_train, batch_size = 50, validation_split = 0.2, epochs = 5)
+Meso4.load_weights('weights/Meso4_DF')
 
 def convertToActual(probs):
     return np.round(probs)
@@ -97,11 +68,8 @@ image_names = generator.filenames
 print("The order of the files are (df is DeepFake):")
 for name in image_names:
         print(name)
-Meso4 = load_model('Meso4.h5')
 prob_real_meso = Meso4.predict(X_test)
 
 actual_pred_Meso = convertToActual(prob_real_meso)
 print('Predicted probability of the image being real Meso:', prob_real_meso,'\nPredicted class :', actual_pred_Meso)
 print('Deepfake detection accuracy is:', computeAccuracy(actual_pred_Meso, y_test), '%')
-
-Meso4.save('Meso4.h5')
