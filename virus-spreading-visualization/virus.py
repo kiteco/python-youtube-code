@@ -87,12 +87,9 @@ class Virus():
             self.exposed_after += round(self.num_new_infected * 1.1)
             if self.exposed_after > 4500:
                 self.num_new_infected = round((4500 - self.exposed_before) * 0.9)
-                self.num_currently_infected += self.num_new_infected
-                self.total_num_infected += self.num_new_infected
                 self.exposed_after = 4500
-            else:
-                self.num_currently_infected += self.num_new_infected
-                self.total_num_infected += self.num_new_infected
+            self.num_currently_infected += self.num_new_infected
+            self.total_num_infected += self.num_new_infected
             self.new_infected_indices = list(np.random.choice(range(self.exposed_before, self.exposed_after), self.num_new_infected, replace=False))
             thetas = [self.thetas[i] for i in self.new_infected_indices]
             rs = [self.rs[i] for i in self.new_infected_indices]
@@ -110,7 +107,7 @@ class Virus():
         
         self.update_status()
         self.update_text()
-
+    
 
     def one_by_one(self, i, thetas, rs, color):
         self.axes.scatter(thetas[i], rs[i], s=5, color=color)
