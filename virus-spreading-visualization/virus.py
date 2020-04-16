@@ -59,11 +59,11 @@ class Virus():
         self.death_fast = params["incubation"] + params["severe_death"][0]
         self.death_slow = params["incubation"] + params["severe_death"][1]
 
-        self.mild = {i: {"thetas": [], "rs": []}
-                     for i in range(self.mild_fast, 365)}
-        self.severe = {"recovery": {i: {"thetas": [], "rs": []} for i in range(self.severe_fast, 365)},
-                       "death": {i: {"thetas": [], "rs": []} for i in range(self.death_fast, 365)}
-                       }
+        self.mild = {i: {"thetas": [], "rs": []} for i in range(self.mild_fast, 365)}
+        self.severe = {
+            "recovery": {i: {"thetas": [], "rs": []} for i in range(self.severe_fast, 365)},
+            "death": {i: {"thetas": [], "rs": []} for i in range(self.death_fast, 365)}
+        }
 
         self.exposed_before = 0
         self.exposed_after = 1
@@ -155,7 +155,7 @@ class Virus():
             self.severe_indices = np.random.choice(remaining_indices, num_severe_recovery, replace=False)
             self.death_indices = [i for i in remaining_indices if i not in self.severe_indices]
 
-        # assign time til recovery/death
+        # assign recovery/death day
         low = self.day + self.mild_fast
         high = self.day + self.mild_slow
         for mild in self.mild_indices:
