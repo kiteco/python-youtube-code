@@ -9,7 +9,10 @@ url = "https://www.reddit.com/r/BabyYoda"
 response = requests.get(url)
 
 # checking response.status_code (if you get 502, try rerunning the code)
-print(f'Status: {response.status_code} (should be 200)\n')
+if response.status_code != 200:
+    print(f"Status: {response.status_code} — Try rerunning the code\n")
+else:
+    print(f"Status: {response.status_code}\n")
 
 # using BeautifulSoup to parse the response object
 soup = BeautifulSoup(response.content, "html.parser")
