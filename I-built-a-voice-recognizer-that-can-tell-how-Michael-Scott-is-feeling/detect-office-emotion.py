@@ -21,7 +21,7 @@ json_file = open('model.json', 'r')
 loaded_model_json = json_file.read()
 json_file.close()
 
-# Load the model from JSON 
+# Load the model from JSON
 loaded_model = model_from_json(loaded_model_json)
 
 # Load weights into new model
@@ -44,7 +44,7 @@ Part two: reading in the audio files
 def readAudioFiles(d, dur, sample_rate):
     if d is None:
         d = 'dir'
-        
+
     df = pd.DataFrame(columns=['feature'])
     file_names = []
     i = 0
@@ -55,8 +55,8 @@ def readAudioFiles(d, dur, sample_rate):
         X, sr = librosa.load(os.path.join(d, audiofile), res_type = 'kaiser_fast', duration = dur , sr = sample_rate, offset = 0.5)
         sr = np.array(sr)
         # Extract the MFCCS
-        mfccs = np.mean(librosa.feature.mfcc(y = X, 
-                                            sr = sr, 
+        mfccs = np.mean(librosa.feature.mfcc(y = X,
+                                            sr = sr,
                                             n_mfcc = 13),
                         axis=0)
         feature = mfccs
@@ -66,7 +66,7 @@ def readAudioFiles(d, dur, sample_rate):
     df = pd.DataFrame(df['feature'].values.tolist())
     df = shuffle(df)
     df = df.fillna(0)
-    return df, file_names 
+    return df, file_names
 
 # Call the method
 audio_features, file_names = readAudioFiles(d = 'the-office-audio-clips', dur = 2.5, sample_rate = 44100)
@@ -74,12 +74,12 @@ audio_features, file_names = readAudioFiles(d = 'the-office-audio-clips', dur = 
 """
 Part three: predicting using the pre-trained CNN
 """
-# Format features for the CNN 
+# Format features for the CNN
 audio_features_cnn = np.expand_dims(audio_features, axis = 2)
 
 # Predict using the pretrained weights
-preds = loaded_model.predict(audio_features_cnn, 
-                             batch_size = 32, 
+preds = loaded_model.predict(audio_features_cnn,
+                             batch_size = 32,
                              verbose = 1)
 # Here we pool the probabilities of the male and female partitions for a particular emotion to remove gender
 def sumProbs(preds):
@@ -115,14 +115,8 @@ def inverseTransform(preds, emotion_dict):
         filename = file_names[i]
         val = emotion_dict[key]
         print('file name:', filename, '/', 'CNN prediction:', key, '/', 'predicted emotion:', val)
-        decoded.append(val) 
+        decoded.append(val)
     return filename, key, val
         
-"""
-Note that the method will print the filename, the prediction that the CNN made, and the predicted emotion.
-Let's just say that emotion detection is sure hard! 
-
-That's what she said... 
-"""
 emotions = e.emotions
 pred_emo = inverseTransform(preds, emotions)
