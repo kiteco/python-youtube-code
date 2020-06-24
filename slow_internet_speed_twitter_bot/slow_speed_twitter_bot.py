@@ -29,6 +29,17 @@ def check_speeds():
 	print("Upload Speed: " + str(upload_speed) + "Mbps")
 	print("\n")
 
+    # # Uncomment code to create triaged messaging
+    # thresholds = {'first':0.8, 'second':0.5}
+    # messages = {'first':'[enter polite message]', 'second': '[enter stern message]'}
+    # if download_speed < advertised_download * thresholds['first'] or upload_speed < advertised_upload * thresholds['first']:
+    #     tweet = messages['first']
+    #     api.request("statuses/update", {"status": tweet})
+    # elif download_speed < advertised_download * thresholds['second'] or upload_speed < advertised_upload * thresholds['second']:
+    #     tweet = messages['second']
+    #     api.request("statuses/update", {"status": tweet})
+
+    # If using triaged messaging, above, then comment out the conditional block, below.
 	if download_speed < advertised_download * 0.8 or upload_speed < advertised_upload * 0.8:
 		tweet = "@XFinity My speeds are 20% slower than advertised, any idea why? 😊"
 		api.request("statuses/update", {"status": tweet})
