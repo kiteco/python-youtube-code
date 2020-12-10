@@ -1,4 +1,5 @@
 import PIL
+import PIL.Image
 
 # ascii characters used to build the output text
 ASCII_CHARS = ["@", "#", "S", "%", "?", "*", "+", ";", ":", ",", "."]
