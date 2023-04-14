@@ -1,4 +1,4 @@
-import PIL
+from PIL import Image
 
 # ascii characters used to build the output text
 ASCII_CHARS = ["@", "#", "S", "%", "?", "*", "+", ";", ":", ",", "."]
@@ -26,7 +26,7 @@ def main(new_width=100):
     # attempt to open image from user-input
     path = input("Enter a valid pathname to an image:\n")
     try:
-        image = PIL.Image.open(path)
+        image = Image.open(path)
     except:
         print(path, " is not a valid pathname to an image.")
         return
@@ -42,7 +42,7 @@ def main(new_width=100):
     print(ascii_image)
     
     # save result to "ascii_image.txt"
-    with open("ascii_image.txt", "w") as f:
+    with open(f"{path[:-4]}.txt", "w") as f:
         f.write(ascii_image)
  
 # run program
